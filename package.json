@@ -1,12 +1,13 @@
 {
     "name": "env-intellisense",
     "displayName": "Env Intellisense",
-    "description": "A simple Environment variable Intellisense Extension for vsCode",
+    "description": "IntelliSense and usage tracking for environment variables from .env files, with inline usage counts, file paths, and quick navigation to variable usage.",
     "version": "0.0.1",
     "engines": {
         "vscode": "^1.107.0"
     },
     "categories": [
+        "Programming Languages",
         "Other"
     ],
     "activationEvents": [],
@@ -42,5 +43,23 @@
         "webpack-cli": "^6.0.1",
         "@vscode/test-cli": "^0.0.12",
         "@vscode/test-electron": "^2.5.2"
-    }
+    },
+    "keywords": [
+        "env",
+        "dotenv",
+        "environment",
+        "environment variables",
+        "env intellisense",
+        "process.env",
+        "import.meta.env",
+        "env usage",
+        "env tracking",
+        "intellisense",
+        "autocomplete",
+        "javascript",
+        "typescript",
+        "nodejs",
+        "vite",
+        "nextjs"
+    ]
 }

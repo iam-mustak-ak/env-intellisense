@@ -1,76 +1,159 @@
-# env-intellisense README
+# env-intellisense
 
-This is the README for your extension "env-intellisense". After writing up a brief description, we recommend including the following sections.
+**env-intellisense** is a Visual Studio Code extension that provides **IntelliSense, usage tracking, and navigation for environment variables** defined in `.env` files.
+
+It helps developers understand **where environment variables are used**, **how often they are used**, and **navigate quickly** to their usage across JavaScript and TypeScript projects.
+
+---
+
+## ✨ Key Features
+
+-   IntelliSense for environment variables from `.env` files
+-   Supports multiple access patterns:
+    `process.env`, `import.meta.env`, `env.`
+-   Counts environment variable usage across the workspace
+-   Displays usage count and file paths inline in `.env` files
+-   Ctrl / Cmd + Click to jump directly to variable usage
+-   Live updates with debounced scanning
+-   Non-intrusive: does not modify `.env` files
+
+---
 
 ## Features
 
 ### Environment Variable IntelliSense
 
--   Automatically suggests environment variables defined in `.env` files
--   Supports `.env`, `.env.local`, `.env.production`, and similar variants
--   Suggestions appear while typing:
+-   Automatically suggests environment variables defined in `.env`, `.env.local`, `.env.production`, and similar files
+-   IntelliSense triggers while typing:
+    ```ts
+    process.env.
+    import.meta.env.
+    env.
     ```
-      process.env.
-    ```
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
--   `myExtension.enable`: Enable/disable this extension.
--   `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
 
 ---
 
-## Following extension guidelines
+### Multi-Syntax Environment Variable Detection
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
+The extension detects environment variables accessed using common patterns across different ecosystems:
 
--   [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
+```ts
+process.env.DB_HOST;
 
-## Working with Markdown
+import.meta.env.VITE_API_URL;
 
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
+env.DB_HOST;
+```
 
--   Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
--   Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
--   Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
+---
 
-## For more information
+### Workspace-wide Usage Counting with File Paths
 
--   [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
--   [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+-   Counts how many times each environment variable is used
+-   Tracks which files contain usages
+-   Example display inside `.env` files:
 
-**Enjoy!**
+```env
+DB_HOST=localhost     # used: 3 (src/db.ts, src/api.ts)
+JWT_SECRET=secret    # used: 1 (auth.ts)
+UNUSED_KEY=value     # unused
+```
+
+---
+
+### Inline Usage Information in `.env` Files
+
+-   Displays usage count and file paths beside each variable
+-   Uses VS Code decorations (non-invasive)
+-   Does not modify file contents
+-   Safe for version control systems
+
+---
+
+### Ctrl / Cmd + Click Navigation
+
+-   Navigate directly from `.env` variables to their usage in code
+-   Shortcuts:
+    -   **Ctrl + Click** (Windows / Linux)
+    -   **Cmd + Click** (macOS)
+-   If multiple usages exist, VS Code shows a location picker
+
+---
+
+### Live Updates
+
+-   Automatically rescans when:
+    -   JavaScript / TypeScript files change
+    -   `.env` files change
+-   Uses debounced scanning to maintain performance in large projects
+
+---
+
+## Supported Languages
+
+-   JavaScript
+-   TypeScript
+-   JavaScript React (JSX)
+-   TypeScript React (TSX)
+
+---
+
+## Requirements
+
+-   Visual Studio Code **1.80.0 or later**
+-   Project using `.env` files
+-   JavaScript or TypeScript codebase
+
+No additional configuration is required.
+
+---
+
+## Extension Settings
+
+This extension does not currently contribute any user-configurable settings.
+All features work automatically after installation.
+
+---
+
+## Known Issues
+
+-   Initial scan may take a short time in very large projects
+-   Currently focuses on JavaScript/TypeScript environments
+
+---
+
+## Release Notes
+
+### 1.0.0
+
+-   Initial release
+-   Environment variable IntelliSense
+-   Workspace-wide usage counting
+-   Inline `.env` usage display
+-   Ctrl / Cmd + Click navigation to usage locations
+-   Live updates with debounced scanning
+
+---
+
+## Following Extension Guidelines
+
+This extension follows Visual Studio Code extension best practices:
+
+-   No file content modification
+-   Native VS Code APIs only
+-   Proper resource disposal on deactivation
+
+For more information:
+https://code.visualstudio.com/api/references/extension-guidelines
+
+---
+
+## Enjoy!
+
+If you find **env-intellisense** useful:
+
+-   ⭐ Rate it on the Marketplace
+-   🐞 Report issues
+-   💡 Suggest improvements
+
+Happy coding! 🚀
