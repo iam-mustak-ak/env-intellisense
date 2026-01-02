@@ -15,6 +15,21 @@ type EnvUsageInfo = {
 
 let envUsageInfo: Map<string, EnvUsageInfo> = new Map();
 
+const ENV_ACCESS_PATTERNS = [
+    // process.env.VAR
+    (env: string) => new RegExp(`\\bprocess\\.env\\.${env}\\b`, "g"),
+
+    // process.env['VAR'] or process.env["VAR"]
+    (env: string) =>
+        new RegExp(`\\bprocess\\.env\\[['"\`]${env}['"\`]\\]`, "g"),
+
+    // import.meta.env.VAR (Vite)
+    (env: string) => new RegExp(`\\bimport\\.meta\\.env\\.${env}\\b`, "g"),
+
+    // env.VAR (generic)
+    (env: string) => new RegExp(`\\benv\\.${env}\\b`, "g"),
+];
+
 let envDecorationType = vscode.window.createTextEditorDecorationType({
     after: {
         color: "#888",
@@ -215,31 +230,32 @@ async function scanEnvUsage() {
  */
 function countEnvInText(text: string, filePath: string, uri: vscode.Uri) {
     for (const env of envVariables) {
-        const regex = new RegExp(`\\bprocess\\.env\\.${env}\\b`, "g");
-        let match: RegExpExecArray | null;
+        for (const patternFactory of ENV_ACCESS_PATTERNS) {
+            const regex = patternFactory(env);
+            let match: RegExpExecArray | null;
 
-        while ((match = regex.exec(text))) {
-            const start = match.index;
-            const end = start + match[0].length;
+            while ((match = regex.exec(text))) {
+                const start = match.index;
 
-            const startPos = text.substring(0, start).split("\n");
-            const line = startPos.length - 1;
-            const char = startPos[startPos.length - 1].length;
+                const startPos = text.substring(0, start).split("\n");
+                const line = startPos.length - 1;
+                const char = startPos[startPos.length - 1].length;
 
-            const usage = envUsageInfo.get(env);
-            if (!usage) {
-                continue;
+                const usage = envUsageInfo.get(env);
+                if (!usage) {
+                    continue;
+                }
+
+                usage.count++;
+                usage.files.add(vscode.workspace.asRelativePath(filePath));
+                usage.locations.push({
+                    uri,
+                    range: new vscode.Range(
+                        new vscode.Position(line, char),
+                        new vscode.Position(line, char + match[0].length)
+                    ),
+                });
             }
-
-            usage.count++;
-            usage.files.add(vscode.workspace.asRelativePath(filePath));
-            usage.locations.push({
-                uri,
-                range: new vscode.Range(
-                    new vscode.Position(line, char),
-                    new vscode.Position(line, char + match[0].length)
-                ),
-            });
         }
     }
 }
@@ -280,8 +296,14 @@ function provideEnvCompletions(
         .lineAt(position)
         .text.substring(0, position.character);
 
-    // Only trigger after process.env.
-    if (!linePrefix.endsWith("process.env.")) {
+    // trigger
+    if (
+        !(
+            linePrefix.endsWith("process.env.") ||
+            linePrefix.endsWith("import.meta.env.") ||
+            linePrefix.endsWith("env.")
+        )
+    ) {
         return;
     }
 
