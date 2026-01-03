@@ -94,7 +94,7 @@ export function activate(context: vscode.ExtensionContext) {
     );
 
     const disposable = vscode.commands.registerCommand(
-        "env-intellisense.envIntellisense",
+        "env-intellisense-prime.envIntellisense",
         () => {
             vscode.window.showInformationMessage(
                 "Env Intellisense Activated!!!"

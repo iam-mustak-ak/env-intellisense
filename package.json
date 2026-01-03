@@ -1,5 +1,5 @@
 {
-    "name": "env-intellisense",
+    "name": "env-intellisense-prime",
     "displayName": "Env Intellisense",
     "description": "IntelliSense and usage tracking for environment variables from .env files, with inline usage counts, file paths, and quick navigation to variable usage.",
     "version": "0.0.1",
@@ -17,7 +17,7 @@
     "contributes": {
         "commands": [
             {
-                "command": "env-intellisense.envIntellisense",
+                "command": "env-intellisense-prime.envIntellisense",
                 "title": "Env Intellisense"
             }
         ]
@@ -66,6 +66,6 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/iam-mustak-ak/env-intellisense"
+        "url": "https://github.com/iam-mustak-ak/env-intellisense-prime"
     }
 }
