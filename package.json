@@ -12,7 +12,14 @@
         "Programming Languages",
         "Other"
     ],
-    "activationEvents": [],
+    "activationEvents": [
+        "onStartupFinished",
+        "onLanguage:javascript",
+        "onLanguage:typescript",
+        "onLanguage:javascriptreact",
+        "onLanguage:typescriptreact",
+        "workspaceContains:.env"
+    ],
     "main": "./dist/extension.js",
     "contributes": {
         "commands": [
