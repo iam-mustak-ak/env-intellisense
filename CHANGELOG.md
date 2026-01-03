@@ -8,7 +8,7 @@ and uses [Semantic Versioning](https://semver.org/).
 
 ---
 
-## [1.0.1] - 2026-01-03
+## [1.1.1] - 2026-01-03
 
 ### Fixed
 
@@ -30,7 +30,7 @@ and uses [Semantic Versioning](https://semver.org/).
 
 ---
 
-## [1.0.0] - 2026-01-01
+## [1.1.0] - 2026-01-01
 
 ### Added
 
