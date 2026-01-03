@@ -4,7 +4,7 @@
     "description": "IntelliSense and usage tracking for environment variables from .env files, with inline usage counts, file paths, and quick navigation to variable usage.",
     "version": "0.0.1",
     "icon": "images/icon.png",
-    "publisher": "Mustak Ahmed Khan",
+    "publisher": "MustakAhmedKhan",
     "engines": {
         "vscode": "^1.107.0"
     },
@@ -63,5 +63,9 @@
         "nodejs",
         "vite",
         "nextjs"
-    ]
+    ],
+    "repository": {
+        "type": "git",
+        "url": ""
+    }
 }
