@@ -43,6 +43,8 @@ process.env.DB_HOST;
 import.meta.env.VITE_API_URL;
 
 env.DB_HOST;
+
+env("DB_HOST");
 ```
 
 ---
