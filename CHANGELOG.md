@@ -8,6 +8,12 @@ and uses [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [1.1.3] - 2026-01-30
+
+### Added
+-   Support for `env("VAR")` and `env('VAR')` usage tracking and IntelliSense.
+-   Codebase refactoring for better modularity and maintainability.
+
 ## [1.1.1] - 2026-01-03
 
 ### Fixed
